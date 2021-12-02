@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SMS">
+
+    <insert id="SMS_INSERT.INSERT">
+    INSERT
+    INTO
+    smsdb.TB_AGT_SMS_TRAN (
+        TR_USER_ID
+        , TR_INST_DATE
+        , TR_SEND_DATE
+        , TR_ORIG_ADDR
+        , TR_DEST_ADDR
+        , TR_CALL_BACK
+        , TR_SMS_MESSAGE
+    )
+    VALUES (
+        #{user_id}
+        , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+        , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+        , #{orig_addr}
+        , #{dest_addr}
+        , #{call_back}
+        , #{sms_message}
+    );
+    </insert>
+
+</mapper>

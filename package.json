@@ -1,0 +1,28 @@
+{
+  "name": "sms-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/any1ok/sms-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/any1ok/sms-server/issues"
+  },
+  "homepage": "https://github.com/any1ok/sms-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mybatis-mapper": "^0.6.5",
+    "mysql2": "^2.3.3",
+    "path": "^0.12.7",
+    "pg": "^8.7.1",
+    "sequelize": "^6.12.0-alpha.1"
+  }
+}
