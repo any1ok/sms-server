@@ -33,18 +33,21 @@ app.post("/",async function (req, res) {
     const aaa = req.body.aaa;
     res.json({ success_yn: true, msg: "success" ,aaa });
 });
+function isNull(data, replace) {
+    return data === undefined || data === "" ? replace : data;
+}
 
 
 app.post("/sms-insert",async function (req, res) {
     let insertQuery1;
     console.log("req.body",req.body);
-    const orig_addr = req.body.params.orig_addr;
+    const orig_addr = isNull(req.body.params.orig_addr,"");
     const dest_addr = req.body.params.dest_addr;
     const call_back = req.body.params.call_back;
     const sms_message = req.body.params.sms_message;
     const user_id = req.body.params.user_id;
 
-    if (orig_addr == null || dest_addr == null ||call_back == null ||sms_message == null ||user_id == null ) {
+    if ( dest_addr == null ||call_back == null ||sms_message == null ||user_id == null ) {
         res.status(401).send({ success_yn: false, msg: "bad parameter" });
         return;
     }
@@ -65,6 +68,44 @@ app.post("/sms-insert",async function (req, res) {
             type: req.sequelize.QueryTypes.INSERT,
         });
 
+        res.json({ success_yn: true, msg: "success"  });
+    } catch (error) {
+        res.status(403).send({ success_yn: false, error: error });
+        console.log("query: error", error);
+        return;
+    }
+});
+
+app.post("/sms-test",async function (req, res) {
+    let insertQuery1;
+    console.log("req.body",req.body);
+    const orig_addr = isNull(req.body.orig_addr,"");
+    const dest_addr = req.body.dest_addr;
+    const call_back = req.body.call_back;
+    const sms_message = req.body.sms_message;
+    const user_id = req.body.user_id;
+
+    if ( dest_addr == null ||call_back == null ||sms_message == null ||user_id == null ) {
+        res.status(401).send({ success_yn: false, msg: "bad parameter" });
+        return;
+    }
+    insertQuery1 = req.mybatisMapper.getStatement(
+        "SMS",
+        "SMS_INSERT.INSERT",
+        {
+            user_id,
+            orig_addr,
+            dest_addr,
+            call_back,
+            sms_message,
+        },
+        { language: "sql", indent: "  " }
+    );
+    try {
+        var result = await req.sequelize.query(insertQuery1, {
+            type: req.sequelize.QueryTypes.INSERT,
+        });
+        console.log("result",result);
         res.json({ success_yn: true, msg: "success"  });
     } catch (error) {
         res.status(403).send({ success_yn: false, error: error });
