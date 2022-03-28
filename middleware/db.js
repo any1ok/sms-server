@@ -10,10 +10,10 @@ const mybatisMapper = require("mybatis-mapper");
 const sequelize = new Sequelize(
   "postgres://sp:standardpass13258@sp.cluster-cfun0a43ytwh.ap-northeast-1.rds.amazonaws.com:5432/sp",
   {
-    dialect: "postgres",
+    dialect: "postgres", 
     dialectOptions: {
-      statement_timeout: 5000,
-      idle_in_transaction_session_timeout: 5000
+      statement_timeout: 5000, //트랜색션 종료시간
+      idle_in_transaction_session_timeout: 5000 트랜색션 잡고 아무것도 안하는시간
     },
     define: {},
     pool: {
